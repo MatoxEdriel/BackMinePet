@@ -94,3 +94,4 @@
 /Users/ingcampoverde/RiderProjects/MinePetBack/Presentations/obj/Debug/net9.0/Presentations.genruntimeconfig.cache
 /Users/ingcampoverde/RiderProjects/MinePetBack/Presentations/obj/Debug/net9.0/ref/Presentations.dll
 /Users/ingcampoverde/RiderProjects/MinePetBack/Presentations/obj/Debug/net9.0/Presentations.sourcelink.json
+/Users/ingcampoverde/RiderProjects/MinePetBack/Presentations/bin/Debug/net9.0/BCrypt.Net-Next.dll

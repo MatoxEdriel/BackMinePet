@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "EfNij7Vz20g=",
+  "dgSpecHash": "lO6z42zlFto=",
   "success": true,
   "projectFilePath": "/Users/ingcampoverde/RiderProjects/MinePetBack/Presentations/Presentations.csproj",
   "expectedPackageFiles": [
     "/Users/ingcampoverde/.nuget/packages/azure.core/1.38.0/azure.core.1.38.0.nupkg.sha512",
     "/Users/ingcampoverde/.nuget/packages/azure.identity/1.11.4/azure.identity.1.11.4.nupkg.sha512",
+    "/Users/ingcampoverde/.nuget/packages/bcrypt.net-next/4.0.3/bcrypt.net-next.4.0.3.nupkg.sha512",
     "/Users/ingcampoverde/.nuget/packages/microsoft.aspnetcore.openapi/9.0.8/microsoft.aspnetcore.openapi.9.0.8.nupkg.sha512",
     "/Users/ingcampoverde/.nuget/packages/microsoft.bcl.asyncinterfaces/1.1.1/microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "/Users/ingcampoverde/.nuget/packages/microsoft.csharp/4.5.0/microsoft.csharp.4.5.0.nupkg.sha512",

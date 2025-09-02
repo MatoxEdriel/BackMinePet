@@ -14,6 +14,9 @@ builder.Services.AddScoped<IPetRepository, PetRepository>();
 
 builder.Services.AddScoped<CreatePetUseCase>();
 
+builder.Services.AddScoped<IUserRepository, UserRepository>(); 
+builder.Services.AddScoped<RegisterUser>();
+
 builder.Services.AddControllers();
 
 var app = builder.Build();
