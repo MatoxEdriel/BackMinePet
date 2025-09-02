@@ -149,3 +149,4 @@
 /Users/ingcampoverde/RiderProjects/MinePetBack/Infrastructure/bin/Debug/net9.0/Domain
 /Users/ingcampoverde/RiderProjects/MinePetBack/Infrastructure/bin/Debug/net9.0/Domain.dll
 /Users/ingcampoverde/RiderProjects/MinePetBack/Infrastructure/bin/Debug/net9.0/Domain.pdb
+/Users/ingcampoverde/RiderProjects/MinePetBack/Infrastructure/obj/Debug/net9.0/Infrastructure.sourcelink.json

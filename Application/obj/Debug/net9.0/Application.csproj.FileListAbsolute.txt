@@ -72,3 +72,5 @@
 /Users/ingcampoverde/RiderProjects/MinePetBack/Application/obj/Debug/net9.0/Application.pdb
 /Users/ingcampoverde/RiderProjects/MinePetBack/Application/obj/Debug/net9.0/Application.genruntimeconfig.cache
 /Users/ingcampoverde/RiderProjects/MinePetBack/Application/obj/Debug/net9.0/ref/Application.dll
+/Users/ingcampoverde/RiderProjects/MinePetBack/Application/obj/Debug/net9.0/Application.sourcelink.json
+/Users/ingcampoverde/RiderProjects/MinePetBack/Application/bin/Debug/net9.0/BCrypt.Net-Next.dll

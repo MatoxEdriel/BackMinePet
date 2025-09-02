@@ -12,3 +12,4 @@
 /Users/ingcampoverde/RiderProjects/MinePetBack/Domain/obj/Debug/net9.0/Domain.pdb
 /Users/ingcampoverde/RiderProjects/MinePetBack/Domain/obj/Debug/net9.0/Domain.genruntimeconfig.cache
 /Users/ingcampoverde/RiderProjects/MinePetBack/Domain/obj/Debug/net9.0/ref/Domain.dll
+/Users/ingcampoverde/RiderProjects/MinePetBack/Domain/obj/Debug/net9.0/Domain.sourcelink.json
