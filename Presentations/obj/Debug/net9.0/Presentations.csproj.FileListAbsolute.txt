@@ -93,3 +93,4 @@
 /Users/ingcampoverde/RiderProjects/MinePetBack/Presentations/obj/Debug/net9.0/Presentations.pdb
 /Users/ingcampoverde/RiderProjects/MinePetBack/Presentations/obj/Debug/net9.0/Presentations.genruntimeconfig.cache
 /Users/ingcampoverde/RiderProjects/MinePetBack/Presentations/obj/Debug/net9.0/ref/Presentations.dll
+/Users/ingcampoverde/RiderProjects/MinePetBack/Presentations/obj/Debug/net9.0/Presentations.sourcelink.json
