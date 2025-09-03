@@ -21,7 +21,6 @@ public class UserController: ControllerBase
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] UserDTO dto)
     {
-
         var user = await _registerUser.ExecuteAsync(
             dto.Name,
             dto.LastName,

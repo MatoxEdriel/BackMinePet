@@ -1,7 +1,5 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinePetBack", "MinePetBack\MinePetBack.csproj", "{A85E886F-98CB-44B4-86F9-C1F1ACA0365E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{F769454F-0387-4010-914E-E18B87A76313}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{45A88AD0-56D3-4C9B-8551-9A52A797EFDA}"
@@ -16,10 +14,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A85E886F-98CB-44B4-86F9-C1F1ACA0365E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A85E886F-98CB-44B4-86F9-C1F1ACA0365E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A85E886F-98CB-44B4-86F9-C1F1ACA0365E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A85E886F-98CB-44B4-86F9-C1F1ACA0365E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F769454F-0387-4010-914E-E18B87A76313}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F769454F-0387-4010-914E-E18B87A76313}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F769454F-0387-4010-914E-E18B87A76313}.Release|Any CPU.ActiveCfg = Release|Any CPU
