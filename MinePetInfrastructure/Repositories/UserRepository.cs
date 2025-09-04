@@ -47,4 +47,9 @@ public class UserRepository: IUserRepository
     {
         throw new NotImplementedException();
     }
+
+    public Task<User?> GetByEmailAsync(string email)
+    {
+        throw new NotImplementedException();
+    }
 }
