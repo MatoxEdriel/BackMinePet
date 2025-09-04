@@ -5,4 +5,5 @@ Debug/
 Release/
 *.user
 *.suo
+*.idea
 *.log
