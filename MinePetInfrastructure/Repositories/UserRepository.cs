@@ -1,5 +1,6 @@
 using Domain.Interfaces;
 using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 using User = Domain.Entities.User;
 
 namespace Infrastructure.Repositories;
@@ -48,8 +49,9 @@ public class UserRepository: IUserRepository
         throw new NotImplementedException();
     }
 
-    public Task<User?> GetByEmailAsync(string email)
+    public async Task<User?> GetByEmailAsync(string email)
     {
-        throw new NotImplementedException();
+        return await _context.Users
+            .FirstOrDefaultAsync(u=> u.Email == email); 
     }
 }

@@ -1,8 +1,10 @@
 using Infrastructure.Repositories;
 using Application.UseCases;
+using Application.UseCases.Auth;
 using Domain.Interfaces;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using Presentations.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,13 +13,18 @@ builder.Services.AddDbContext<MinePetContext>(options =>
 );
 
 builder.Services.AddScoped<IPetRepository, PetRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>(); 
+
+
 
 builder.Services.AddScoped<CreatePetUseCase>();
-
-builder.Services.AddScoped<IUserRepository, UserRepository>(); 
 builder.Services.AddScoped<RegisterUser>();
+builder.Services.AddScoped<LoginUser>();
 
+
+builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddControllers();
+
 
 builder.Services.AddCors(options =>
 {
@@ -29,8 +36,6 @@ builder.Services.AddCors(options =>
                 .AllowAnyMethod();
         });
 });
-
-
 
 var app = builder.Build();
 

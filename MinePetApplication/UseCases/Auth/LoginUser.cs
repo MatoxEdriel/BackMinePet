@@ -30,7 +30,6 @@ public class LoginUser
         {
             UserId = user.UserId,
             Email = user.Email,
-            //Ojito aqui 
             Role = user.RoleId.ToString(),
             Token = token
         };

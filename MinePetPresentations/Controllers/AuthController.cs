@@ -24,7 +24,15 @@ public class AuthController: ControllerBase
         try
         {
             var response = await _loginUser.ExecuteAsync(request);
-            return Ok(response);
+            return Ok(new
+            {
+                data = response,
+                statusCode = 200,
+                message = "Login Successful",
+                error = ""
+                
+                
+            });
         }
         catch (UnauthorizedAccessException)
         {
