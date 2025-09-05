@@ -1,6 +1,7 @@
 using Application.UseCases.Auth;
 using Microsoft.AspNetCore.Mvc;
 using Presentations.DTOs;
+using Presentations.DTOs.Responses;
 
 namespace Presentations.Controllers;
 
@@ -8,8 +9,6 @@ namespace Presentations.Controllers;
 [Route("api/[controller]")]
 public class AuthController: ControllerBase
 {
-    
-
     private readonly LoginUser _loginUser;
 
     public AuthController(LoginUser loginUser)
@@ -24,19 +23,17 @@ public class AuthController: ControllerBase
         try
         {
             var response = await _loginUser.ExecuteAsync(request);
-            return Ok(new
-            {
-                data = response,
-                statusCode = 200,
-                message = "Login Successful",
-                error = ""
-                
-                
-            });
+            return Ok(ApiResponse<LoginResponseDto>.CreateSuccess(
+                    data: response,
+                    message: "Login Successful"
+                )
+            );
         }
         catch (UnauthorizedAccessException)
         {
-            return Unauthorized(new { message = "Invalid credentials" });
+            return Unauthorized(
+                ApiResponse<LoginResponseDto>.Unauthorized("Credentials Invalids")
+                );
         }
     }
     
