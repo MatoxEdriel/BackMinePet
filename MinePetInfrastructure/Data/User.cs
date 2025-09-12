@@ -7,17 +7,7 @@ public partial class User
 {
     public int UserId { get; set; }
 
-    public string Name { get; set; } = null!;
-
-    public string LastName { get; set; } = null!;
-
-    public string? Alias { get; set; }
-
     public string Email { get; set; } = null!;
-
-    public string? Phone { get; set; }
-
-    public string? IdentityNumber { get; set; }
 
     public int RoleId { get; set; }
 
@@ -58,4 +48,10 @@ public partial class User
     public virtual ICollection<Pet> PetVeterinarians { get; set; } = new List<Pet>();
 
     public virtual ICollection<PetVeterinarian> PetVeterinariansNavigation { get; set; } = new List<PetVeterinarian>();
+
+    public virtual ICollection<UserProfile> UserProfileCreatedByNavigations { get; set; } = new List<UserProfile>();
+
+    public virtual ICollection<UserProfile> UserProfileUpdatedByNavigations { get; set; } = new List<UserProfile>();
+
+    public virtual UserProfile? UserProfileUser { get; set; }
 }
