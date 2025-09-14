@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Presentations.DTOs;
 
+
 namespace Presentations.Controllers;
 
 
@@ -18,15 +19,16 @@ public class UserController: ControllerBase
         _registerUser = registerUser;  
     }
 
+    /// <summary>
+    /// here using dto from to front 
+    /// </summary>
+    /// <param name="dto"></param>
+    /// <returns></returns>
     [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] UserDTO dto)
+    public async Task<IActionResult> Register([FromBody] RegisterUsertDto dto)
     {
         var user = await _registerUser.ExecuteAsync(
-            dto.Name,
-            dto.LastName,
-            dto.Email,
-            dto.Password,
-            dto.RoleId
+          dto
         );
         return Ok(user); 
     }

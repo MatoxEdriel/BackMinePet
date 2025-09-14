@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Domain.Entities;
 
 namespace Infrastructure.Data;
 
@@ -27,9 +28,10 @@ public partial class MinePetContext : DbContext
 
     public virtual DbSet<Role> Roles { get; set; }
 
-    public virtual DbSet<User> Users { get; set; }
+    //Cambios
+    public virtual DbSet<Domain.Entities.User> User { get; set; }
 
-    public virtual DbSet<UserProfile> UserProfiles { get; set; }
+    public virtual DbSet<UserProfile> UserProfile { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -208,7 +210,7 @@ public partial class MinePetContext : DbContext
             entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
         });
 
-        modelBuilder.Entity<User>(entity =>
+        modelBuilder.Entity<Domain.Entities.User>(entity =>
         {
             entity.HasKey(e => e.UserId).HasName("PK__Users__1788CC4C53829BD6");
 
@@ -218,11 +220,12 @@ public partial class MinePetContext : DbContext
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
             entity.Property(e => e.Email).HasMaxLength(150);
-            entity.Property(e => e.EmailConfirmed).HasDefaultValue(false);
             entity.Property(e => e.IsActive).HasDefaultValue(true);
-            entity.Property(e => e.LastLogin).HasColumnType("datetime");
             entity.Property(e => e.PasswordHash).HasMaxLength(255);
-            entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
+            
+            entity.HasOne(u => u.)       // User tiene una propiedad de navegación UserProfile.
+                .WithOne()                       // La relación es 1-a-1 (sin navegación de regreso).
+                .HasForeignKey<UserProfile>(p => p.UserId);
         });
 
         modelBuilder.Entity<UserProfile>(entity =>
@@ -233,28 +236,13 @@ public partial class MinePetContext : DbContext
 
             entity.Property(e => e.UserId).ValueGeneratedNever();
             entity.Property(e => e.Alias).HasMaxLength(100);
-            entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
             entity.Property(e => e.IdentityNumber).HasMaxLength(20);
             entity.Property(e => e.LastName).HasMaxLength(100);
             entity.Property(e => e.Name).HasMaxLength(100);
             entity.Property(e => e.Phone).HasMaxLength(13);
             entity.Property(e => e.ProfilePictureUrl).HasMaxLength(500);
-            entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
 
-            entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.UserProfileCreatedByNavigations)
-                .HasForeignKey(d => d.CreatedBy)
-                .HasConstraintName("FK_UserProfile_CreatedBy");
-
-            entity.HasOne(d => d.UpdatedByNavigation).WithMany(p => p.UserProfileUpdatedByNavigations)
-                .HasForeignKey(d => d.UpdatedBy)
-                .HasConstraintName("FK_UserProfile_UpdatedBy");
-
-            entity.HasOne(d => d.User).WithOne(p => p.UserProfileUser)
-                .HasForeignKey<UserProfile>(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_UserProfile_User");
+          
         });
 
         OnModelCreatingPartial(modelBuilder);

@@ -29,14 +29,11 @@ public class UserRepository: IUserRepository
         throw new NotImplementedException();
     }
 
-    public async Task<User> AddAsync(User user)
+    public async Task<User> AddAsync(User userRegister)
     {
-
-        _context.Users.Add(user);
+        _context.User.Add(userRegister);
         await _context.SaveChangesAsync();
-        return user;
-
-
+        return userRegister;
     }
 
     public Task<User> UpdateAsync(User user)
@@ -51,7 +48,7 @@ public class UserRepository: IUserRepository
 
     public async Task<User?> GetByEmailAsync(string email)
     {
-        return await _context.Users
+        return await _context.User
             .FirstOrDefaultAsync(u=> u.Email == email); 
     }
 }

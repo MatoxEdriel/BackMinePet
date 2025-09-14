@@ -1,5 +1,6 @@
 using Domain.Entities;
 using Domain.Interfaces;
+using Presentations.DTOs;
 
 namespace Application.UseCases;
 
@@ -16,19 +17,28 @@ public class RegisterUser
     }
 
 
-    public async Task<User> ExecuteAsync(string name, string lastName, string email, string password, int roleId )
+    public async Task<User> ExecuteAsync(RegisterUsertDto dto)
     {
-        var user = new User
+        //De aqui crear la entidad que trabajara con los casos de uso 
+        //crear entidades apartir de los datos Dto 
+        var userRegister = new User
         {
-            Name = name,
-            LastName = lastName,
-            Email = email,
-            PasswordHash = BCrypt.Net.BCrypt.HashPassword(password),
-            RoleId = roleId,
+            
+            Email = dto.Email,
+            PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
+            //y aqui comenzaria mapear los demas datos
+            UserProfile = new UserProfile
+            {
+                Name = dto.Name,
+                LastName = dto.LastName,
+                Phone = dto.PhoneNumber,
+            },
             IsActive = true,
             CreatedAt = DateTime.Now
         };
-        return await _userRepository.AddAsync(user);
+        return await _userRepository.AddAsync(userRegister);
 
     }
+
+ 
 }
