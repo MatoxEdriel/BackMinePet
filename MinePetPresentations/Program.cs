@@ -2,6 +2,7 @@ using Infrastructure.Repositories;
 using Application.UseCases;
 using Application.UseCases.Auth;
 using Domain.Interfaces;
+using Domain.Interfaces.Repository;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Presentations.Services;

@@ -1,5 +1,6 @@
 using Domain.Entities;
 using Domain.Interfaces;
+using Domain.Interfaces.Repository;
 using Presentations.DTOs;
 
 namespace Application.UseCases;
@@ -27,7 +28,7 @@ public class RegisterUser
             Email = dto.Email,
             PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
             //y aqui comenzaria mapear los demas datos
-            UserProfile = new UserProfile
+            UserProfileUser = new UserProfile
             {
                 Name = dto.Name,
                 LastName = dto.LastName,

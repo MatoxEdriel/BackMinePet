@@ -1,7 +1,8 @@
+using Domain.Entities;
 using Domain.Interfaces;
+using Domain.Interfaces.Repository;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using User = Domain.Entities.User;
 
 namespace Infrastructure.Repositories;
 
@@ -24,14 +25,14 @@ public class UserRepository: IUserRepository
         throw new NotImplementedException();
     }
 
-    public Task<User?> GetByIdAsync(int id)
+    public Task<User> GetByIdAsync(int id)
     {
         throw new NotImplementedException();
     }
 
     public async Task<User> AddAsync(User userRegister)
     {
-        _context.User.Add(userRegister);
+        _context.Users.Add(userRegister);
         await _context.SaveChangesAsync();
         return userRegister;
     }
@@ -48,7 +49,7 @@ public class UserRepository: IUserRepository
 
     public async Task<User?> GetByEmailAsync(string email)
     {
-        return await _context.User
+        return await _context.Users
             .FirstOrDefaultAsync(u=> u.Email == email); 
     }
 }

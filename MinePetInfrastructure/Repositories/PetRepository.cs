@@ -16,7 +16,7 @@ public class PetRepository : IPetRepository {
     
     public void Add(Pet pet)
     {
-        var petData = new Infrastructure.Data.Pet()
+        var petData = new Pet()
         {
             Name = pet.Name,
             Species = pet.Species,

@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Infrastructure.Data;
 
-namespace Infrastructure.Data;
+namespace Domain.Entities;
 
 public partial class Notification
 {

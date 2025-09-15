@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Infrastructure.Data;
+﻿namespace Domain.Entities;
 
 public partial class PetVeterinarian
 {

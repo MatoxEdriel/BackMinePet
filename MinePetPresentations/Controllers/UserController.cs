@@ -27,12 +27,26 @@ public class UserController: ControllerBase
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] RegisterUsertDto dto)
     {
-        var user = await _registerUser.ExecuteAsync(
-          dto
-        );
-        return Ok(user); 
+        var newUser = await _registerUser.ExecuteAsync(dto);
+
+        // NO HAGAS ESTO: return Ok(newUser); <-- Esto es la entidad con referencias circulares
+
+        // HAZ ESTO: Mapea a un DTO
+        var userResponse = new UserResponseDto
+        {
+            UserId = newUser.UserId,
+            Email = newUser.Email,
+            Name = newUser.UserProfileUser?.Name // Asumiendo que UserProfile está cargado
+        };
+        return Ok(userResponse); 
     }
 
+    public class UserResponseDto
+    {
+        public int UserId { get; set; }
+        public string Email { get; set; }
+        public string? Name { get; set; }
+    }
 
 
 }

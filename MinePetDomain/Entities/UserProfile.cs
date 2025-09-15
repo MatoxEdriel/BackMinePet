@@ -1,28 +1,34 @@
+﻿using Infrastructure.Data;
+
 namespace Domain.Entities;
 
-public class UserProfile
+public partial class UserProfile
 {
-        public int UserId { get; private set; }
-        public string Name { get; set; }
-        public string LastName { get; set; }
-        public string? Alias { get; private set; }
-        public string? Phone { get; set; }
-        public string? ProfilePictureUrl { get; set; }
-        public string? IdentityNumber { get; private set; }
+    public int UserId { get; set; }
 
-        public UserProfile()
-        {
-        }
+    public string Name { get; set; } = null!;
 
-        public UserProfile(string name, string lastName)
-        {
-                this.Name = name;
-                this.LastName = lastName;
-                Alias = $"{name} {lastName}";
-        }
+    public string LastName { get; set; } = null!;
 
-        
+    public string? Alias { get; set; }
 
+    public string? Phone { get; set; }
 
+    public string? IdentityNumber { get; set; }
 
+    public string? ProfilePictureUrl { get; set; }
+
+    public DateTime? CreatedAt { get; set; }
+
+    public DateTime? UpdatedAt { get; set; }
+
+    public int? CreatedBy { get; set; }
+
+    public int? UpdatedBy { get; set; }
+
+    public virtual User? CreatedByNavigation { get; set; }
+
+    public virtual User? UpdatedByNavigation { get; set; }
+
+    public virtual User User { get; set; } = null!;
 }

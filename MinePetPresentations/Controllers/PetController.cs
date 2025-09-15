@@ -1,4 +1,5 @@
 using Application.UseCases;
+using Domain.Entities;
 using Presentations.DTOs;
 namespace Presentations.Controllers;
 using Microsoft.AspNetCore.Mvc;
@@ -15,14 +16,14 @@ public class PetController : ControllerBase
     }
     
     
-    [HttpPost]
-    public IActionResult CreatePet([FromBody] PetDto dto)
-    {
-
-        var pet = new Domain.Entities.Pet(dto.Id, dto.Name, dto.Species, dto.BirthDate);
-        _createPetUseCase.Execute(pet);
-        return Ok(new { message = "Pet created successfully!" });
-    }
+    // [HttpPost]
+    // public IActionResult CreatePet([FromBody] PetDto dto)
+    // {
+    //     //
+    //     // var pet = new Pet(dto.Id, dto.Name, dto.Species, dto.BirthDate);
+    //     // _createPetUseCase.Execute(pet);
+    //     // return Ok(new { message = "Pet created successfully!" });
+    // }
     
     
     
