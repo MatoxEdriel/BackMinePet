@@ -37,6 +37,9 @@ builder.Services.AddCors(options =>
                 .AllowAnyMethod();
         });
 });
+//Dependencias automapper 
+//se debe crear mapeoso 
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
 
