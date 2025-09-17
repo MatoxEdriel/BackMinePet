@@ -1,7 +1,7 @@
 using AutoMapper;
 using Domain.Entities;
 using Domain.Interfaces;
-using Domain.Interfaces.Repository;
+using Domain.Interfaces.Repo;
 using Presentations.DTOs;
 
 namespace Application.UseCases;
@@ -26,14 +26,11 @@ public class RegisterUser
       
       userRegister.PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password);
       userRegister.IsActive = true;
-      userRegister.CreatedAt = DateTime.Now;
-        userRegister.UserProfileUser = new UserProfile
-        {
-            Name = dto.Name,
-            LastName = dto.LastName,
-            Phone = dto.PhoneNumber
-        };
-        return await _userRepository.AddAsync(userRegister);
+      userRegister.CreatedAt= DateTime.Now;
+      var newUserProfile = new UserProfile(userRegister, dto.Name, dto.LastName);
+      userRegister.UserProfile = newUserProfile;
+      
+      return await _userRepository.CreateUserAsync(userRegister);
 
     }
 

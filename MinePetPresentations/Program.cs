@@ -3,9 +3,8 @@ using Application.UseCases;
 using Application.UseCases.Auth;
 using Domain.Interfaces;
 using Domain.Interfaces.Repo;
-using Domain.Interfaces.Repository;
 using Domain.Interfaces.Services;
-using Infrastructure.Data;
+using Infrastructure.context;
 using Microsoft.EntityFrameworkCore;
 using Presentations.Services;
 
@@ -15,12 +14,11 @@ builder.Services.AddDbContext<MinePetContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
 
-builder.Services.AddScoped<IPetRepository, PetRepository>();
+// builder.Services.AddScoped<IPetRepository, PetRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>(); 
 
 
 
-builder.Services.AddScoped<CreatePetUseCase>();
 builder.Services.AddScoped<RegisterUser>();
 builder.Services.AddScoped<LoginUser>();
 

@@ -1,6 +1,4 @@
-﻿using Infrastructure.Data;
-
-namespace Domain.Entities;
+﻿namespace Infrastructure.EF;
 
 public partial class UserProfile
 {
@@ -26,9 +24,9 @@ public partial class UserProfile
 
     public int? UpdatedBy { get; set; }
 
-    public virtual User? CreatedByNavigation { get; set; }
+    public virtual Infrastructure.EF.User? CreatedByNavigation { get; set; }
 
-    public virtual User? UpdatedByNavigation { get; set; }
+    public virtual Infrastructure.EF.User? UpdatedByNavigation { get; set; }
 
-    public virtual User User { get; set; } = null!;
+    public virtual Infrastructure.EF.User User { get; set; } = null!;
 }

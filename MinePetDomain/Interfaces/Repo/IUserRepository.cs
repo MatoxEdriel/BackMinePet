@@ -1,16 +1,13 @@
 using Domain.Entities;
 
-namespace Domain.Interfaces.Repository;
+namespace Domain.Interfaces.Repo;
 
 public interface IUserRepository
 {
-    Task<IEnumerable<User>> GetAllAsync();
-    Task<User?> GetByIdAsync(int id);
-    Task<User> AddAsync(User user);
-    Task<User> UpdateAsync(User user);
-    Task DeleteAsync(int id);
-    
+    Task<IEnumerable<User>> GetAllUsersAsync(); 
+    Task<User?> GetByIdAsync(int id); 
+    Task<User> CreateUserAsync(User user); 
+    Task<User> UpdateAsync(User user); 
+    Task DeleteUserAsync(int id); 
     Task<User?> GetByEmailAsync(string email);
-    
-    
 }

@@ -1,6 +1,4 @@
-﻿using Infrastructure.Data;
-
-namespace Domain.Entities;
+﻿namespace Infrastructure.EF;
 
 public partial class Clinic
 {

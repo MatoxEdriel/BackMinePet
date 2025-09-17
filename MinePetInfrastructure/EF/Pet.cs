@@ -1,6 +1,5 @@
-﻿using Infrastructure.Data;
-
-namespace Domain.Entities;
+﻿
+namespace Infrastructure.EF;
 
 public partial class Pet
 {
@@ -32,15 +31,15 @@ public partial class Pet
 
     public virtual ICollection<Consultation> Consultations { get; set; } = new List<Consultation>();
 
-    public virtual User? CreatedByNavigation { get; set; }
+    public virtual Infrastructure.EF.User? CreatedByNavigation { get; set; }
 
     public virtual ICollection<Notification> Notifications { get; set; } = new List<Notification>();
 
-    public virtual User Owner { get; set; } = null!;
+    public virtual Infrastructure.EF.User Owner { get; set; } = null!;
 
     public virtual ICollection<PetVeterinarian> PetVeterinarians { get; set; } = new List<PetVeterinarian>();
 
-    public virtual User? UpdateByNavigation { get; set; }
+    public virtual Infrastructure.EF.User? UpdateByNavigation { get; set; }
 
-    public virtual User? Veterinarian { get; set; }
+    public virtual Infrastructure.EF.User? Veterinarian { get; set; }
 }

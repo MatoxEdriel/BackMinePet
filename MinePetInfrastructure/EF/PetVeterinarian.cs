@@ -1,4 +1,4 @@
-﻿namespace Domain.Entities;
+﻿namespace Infrastructure.EF;
 
 public partial class PetVeterinarian
 {
@@ -18,7 +18,7 @@ public partial class PetVeterinarian
 
     public DateTime? UpdateAt { get; set; }
 
-    public virtual Pet Pet { get; set; } = null!;
+    public virtual Infrastructure.EF.Pet Pet { get; set; } = null!;
 
-    public virtual User Veterinarian { get; set; } = null!;
+    public virtual Infrastructure.EF.User Veterinarian { get; set; } = null!;
 }

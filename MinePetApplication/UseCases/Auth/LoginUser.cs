@@ -1,5 +1,5 @@
 using Domain.Interfaces;
-using Domain.Interfaces.Repository;
+using Domain.Interfaces.Repo;
 using Domain.Interfaces.Services;
 using Presentations.DTOs;
 

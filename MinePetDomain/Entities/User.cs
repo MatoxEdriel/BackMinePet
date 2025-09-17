@@ -4,9 +4,10 @@ public class User
 {
     public int UserId { get; private set; } 
     public string Email { get; private set; }
-    public string PasswordHash { get; private set; }
+    public string PasswordHash { get; set; }
     public int RoleId { get; private set; }
-    public bool IsActive { get; private set; }
+    public bool IsActive { get; set; }
+    public DateTime CreatedAt { get; set; }
 
     
     public virtual UserProfile? UserProfile { get; set; }

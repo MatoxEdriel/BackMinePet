@@ -28,7 +28,7 @@ public class UserController: ControllerBase
         
         var userResponse = new UserRegisterResponseDto()
         {
-            Name = newUser.UserProfileUser?.Name 
+            Name = newUser.UserProfile?.Name 
         };
         return Ok(userResponse);  
     }

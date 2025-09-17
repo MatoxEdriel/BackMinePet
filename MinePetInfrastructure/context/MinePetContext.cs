@@ -1,9 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using Domain.Entities;
+﻿using Domain.Entities;
+using Infrastructure.EF;
 using Microsoft.EntityFrameworkCore;
+using Pet = Infrastructure.EF.Pet;
+using User = Infrastructure.EF.User;
+using UserProfile = Infrastructure.EF.UserProfile;
 
-namespace Infrastructure.Data;
+namespace Infrastructure.context;
 
 public partial class MinePetContext : DbContext
 {

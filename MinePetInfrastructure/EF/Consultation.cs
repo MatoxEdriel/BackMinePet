@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using Domain.Entities;
+﻿using Domain.Entities;
 
-namespace Infrastructure.Data;
+namespace Infrastructure.EF;
 
 public partial class Consultation
 {

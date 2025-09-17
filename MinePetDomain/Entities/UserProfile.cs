@@ -29,6 +29,8 @@ public class UserProfile
         LastName = lastName;
     }
 
+  
+
     public void UpdateContactInfo(string? newPhone, string? newAlias)
     {
         Phone = newPhone;
