@@ -18,8 +18,8 @@ public class RegisterUser
         _mapper = mapper;
         _userRepository = userRepository;
     }
-//en el caso de uso se debe hacer el mapping 
 
+    
     public async Task<User> ExecuteAsync(RegisterUsertDto dto)
     {
       var userRegister = _mapper.Map<User>(dto);
@@ -27,20 +27,6 @@ public class RegisterUser
       userRegister.PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password);
       userRegister.IsActive = true;
       userRegister.CreatedAt = DateTime.Now;
-        // var userRegister = new User
-        // {
-        //     
-        //     Email = dto.Email,
-        //     PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
-        //     UserProfileUser = new UserProfile
-        //     {
-        //         Name = dto.Name,
-        //         LastName = dto.LastName,
-        //         Phone = dto.PhoneNumber,
-        //     },
-        //     IsActive = true,
-        //     CreatedAt = DateTime.Now
-        // };
         userRegister.UserProfileUser = new UserProfile
         {
             Name = dto.Name,

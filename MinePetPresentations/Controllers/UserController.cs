@@ -1,6 +1,5 @@
 using Application.DTOs.User;
 using Application.UseCases;
-using AutoMapper;
 using Domain.Entities;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +15,7 @@ namespace Presentations.Controllers;
 public class UserController: ControllerBase
 {
     private readonly RegisterUser _registerUser;
-    public UserController(RegisterUser registerUser,  IMapper mapper)
+    public UserController(RegisterUser registerUser)
     {
         _registerUser = registerUser;  
     }
