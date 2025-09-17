@@ -1,5 +1,7 @@
 
 using Domain.Interfaces;
+using Domain.Interfaces.Repo;
+using Domain.Interfaces.Repository;
 using Infrastructure.Data;
 using Infrastructure.Repositories;
 using Pet = Domain.Entities.Pet;

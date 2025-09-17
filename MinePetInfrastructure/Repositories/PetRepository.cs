@@ -1,41 +1,32 @@
-using Domain.Interfaces;
+using Domain.Entities;
+using Domain.Interfaces.Repo; // Asegúrate de que este 'using' es correcto
 using Infrastructure.Data;
-using Pet = Domain.Entities.Pet;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories;
 
-public class PetRepository : IPetRepository {
-    
+public class PetRepository : IPetRepository 
+{
     private readonly MinePetContext _context;
-
 
     public PetRepository(MinePetContext context)
     {
         _context = context;
     }
+
+    public async Task AddAsync(Pet pet)
+    {
+        await _context.Pets.AddAsync(pet);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task<Pet?> GetByIdAsync(int id)
+    {
+        return await _context.Pets.FindAsync(id);
+    }
     
-    public void Add(Pet pet)
+    public async Task<IEnumerable<Pet>> GetAllAsync()
     {
-        var petData = new Pet()
-        {
-            Name = pet.Name,
-            Species = pet.Species,
-            BirthDate = pet.BirthDate,
-
-        };
-            _context.Pets.Add(petData);
-            _context.SaveChanges();
-
-        
-    }
-
-    public Pet? GetById(int id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public IEnumerable<Pet> GetAll()
-    {
-        throw new NotImplementedException();
+        return await _context.Pets.ToListAsync();
     }
 }

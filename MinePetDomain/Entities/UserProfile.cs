@@ -1,34 +1,47 @@
-﻿using Infrastructure.Data;
-
 namespace Domain.Entities;
 
-public partial class UserProfile
+public class UserProfile
 {
-    public int UserId { get; set; }
+    public int UserId { get; private set; }
+    public string Name { get; private set; }
+    public string LastName { get; private set; }
+    public string? Alias { get; private set; }
+    public string? Phone { get; private set; }
+    public string? IdentityNumber { get; private set; }
+    public string? ProfilePictureUrl { get; private set; }
 
-    public string Name { get; set; } = null!;
+    public virtual User User { get; private set; }
 
-    public string LastName { get; set; } = null!;
+    public string FullName => $"{Name} {LastName}";
 
-    public string? Alias { get; set; }
+    private UserProfile() { }
 
-    public string? Phone { get; set; }
+    public UserProfile(User user, string name, string lastName)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+            throw new ArgumentException("El nombre es requerido.");
+        if (string.IsNullOrWhiteSpace(lastName))
+            throw new ArgumentException("El apellido es requerido.");
 
-    public string? IdentityNumber { get; set; }
+        User = user ?? throw new ArgumentNullException(nameof(user));
+        UserId = user.UserId;
+        Name = name;
+        LastName = lastName;
+    }
 
-    public string? ProfilePictureUrl { get; set; }
+    public void UpdateContactInfo(string? newPhone, string? newAlias)
+    {
+        Phone = newPhone;
+        Alias = newAlias;
+    }
 
-    public DateTime? CreatedAt { get; set; }
+    public void ChangeProfilePicture(string? newPictureUrl)
+    {
+        ProfilePictureUrl = newPictureUrl;
+    }
 
-    public DateTime? UpdatedAt { get; set; }
-
-    public int? CreatedBy { get; set; }
-
-    public int? UpdatedBy { get; set; }
-
-    public virtual User? CreatedByNavigation { get; set; }
-
-    public virtual User? UpdatedByNavigation { get; set; }
-
-    public virtual User User { get; set; } = null!;
+    public void UpdateIdentity(string? newIdentityNumber)
+    {
+        IdentityNumber = newIdentityNumber;
+    }
 }

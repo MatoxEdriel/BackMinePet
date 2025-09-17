@@ -1,46 +1,71 @@
-﻿using Infrastructure.Data;
-
 namespace Domain.Entities;
 
-public partial class Pet
+public class Pet
 {
-    public int PetId { get; set; }
+    public int PetId { get; private set; }
+    public string Name { get; private set; }
+    public string Species { get; private set; }
+    public string Breed { get; private set; }
+    public DateOnly BirthDate { get; private set; }
+    public string Gender { get; private set; }
+    public bool IsActive { get; private set; }
 
-    public int OwnerId { get; set; }
+    public int OwnerId { get; private set; }
+    public virtual User Owner { get; private set; }
+    
+    public int? VeterinarianId { get; private set; }
+    public virtual User? Veterinarian { get; private set; }
 
-    public string Name { get; set; } = null!;
+    public int Age
+    {
+        get
+        {
+            var today = DateOnly.FromDateTime(DateTime.UtcNow);
+            var age = today.Year - BirthDate.Year;
+            if (BirthDate > today.AddYears(-age)) age--;
+            return age;
+        }
+    }
+    
+    private Pet() { }
 
-    public string? Species { get; set; }
+    public Pet(User owner, string name, string species, string breed, DateOnly birthDate, string gender)
+    {
+        if (owner == null)
+            throw new ArgumentNullException(nameof(owner), "Una mascota debe tener un dueño.");
+        if (string.IsNullOrWhiteSpace(name))
+            throw new ArgumentException("El nombre de la mascota es requerido.", nameof(name));
+        
+        Owner = owner;
+        OwnerId = owner.UserId;
+        Name = name;
+        Species = species;
+        Breed = breed;
+        BirthDate = birthDate;
+        Gender = gender;
+        IsActive = true;
+    }
 
-    public string? Breed { get; set; }
+    public void UpdateDetails(string newName, string newBreed)
+    {
+        if (!string.IsNullOrWhiteSpace(newName))
+        {
+            Name = newName;
+        }
+        if (!string.IsNullOrWhiteSpace(newBreed))
+        {
+            Breed = newBreed;
+        }
+    }
 
-    public DateOnly? BirthDate { get; set; }
+    public void AssignVeterinarian(User? veterinarian)
+    {
+        Veterinarian = veterinarian;
+        VeterinarianId = veterinarian?.UserId;
+    }
 
-    public string? Gender { get; set; }
-
-    public int? VeterinarianId { get; set; }
-
-    public DateTime? CreatedAt { get; set; }
-
-    public DateTime? UpdateAt { get; set; }
-
-    public int? CreatedBy { get; set; }
-
-    public int? UpdateBy { get; set; }
-
-    public bool? IsActive { get; set; }
-
-    public virtual ICollection<Consultation> Consultations { get; set; } = new List<Consultation>();
-
-    public virtual User? CreatedByNavigation { get; set; }
-
-    public virtual ICollection<Notification> Notifications { get; set; } = new List<Notification>();
-
-    public virtual User Owner { get; set; } = null!;
-
-    public virtual ICollection<PetVeterinarian> PetVeterinarians { get; set; } = new List<PetVeterinarian>();
-
-    public virtual User? UpdateByNavigation { get; set; }
-
-    public virtual User? Veterinarian { get; set; }
+    public void Deactivate()
+    {
+        IsActive = false;
+    }
 }

@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Text;
 using Domain.Entities;
 using Domain.Interfaces;
+using Domain.Interfaces.Services;
 using Microsoft.IdentityModel.Tokens;
 using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 

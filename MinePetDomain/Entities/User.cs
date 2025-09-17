@@ -1,56 +1,37 @@
-﻿using Infrastructure.Data;
-
 namespace Domain.Entities;
 
-public partial class User
+public class User
 {
-    public int UserId { get; set; }
+    public int UserId { get; private set; } 
+    public string Email { get; private set; }
+    public string PasswordHash { get; private set; }
+    public int RoleId { get; private set; }
+    public bool IsActive { get; private set; }
 
-    public string Email { get; set; } = null!;
+    
+    public virtual UserProfile? UserProfile { get; set; }
 
-    public int RoleId { get; set; }
+    private User() { }
+    public User(string email, string passwordHash, int roleId)
+    {
+        
+        if (string.IsNullOrWhiteSpace(email))
+            throw new ArgumentException("El email no puede estar vacío.");
 
-    public bool? EmailConfirmed { get; set; }
+        Email = email;
+        PasswordHash = passwordHash;
 
-    public DateTime? LastLogin { get; set; }
+        RoleId = roleId;
+        IsActive = true; 
+    }
 
-    public DateTime? CreatedAt { get; set; }
+    public void Deactivate()
+    {
+        IsActive = false;
+    }
 
-    public DateTime? UpdatedAt { get; set; }
-
-    public int? CreatedBy { get; set; }
-
-    public int? UpdatedBy { get; set; }
-
-    public bool? IsActive { get; set; }
-
-    public string PasswordHash { get; set; } = null!;
-
-    public virtual ICollection<Consultation> ConsultationCreatedByNavigations { get; set; } = new List<Consultation>();
-
-    public virtual ICollection<Consultation> ConsultationUpdatedByNavigations { get; set; } = new List<Consultation>();
-
-    public virtual ICollection<Consultation> ConsultationVeterinarians { get; set; } = new List<Consultation>();
-
-    public virtual ICollection<Notification> NotificationCreatedByNavigations { get; set; } = new List<Notification>();
-
-    public virtual ICollection<Notification> NotificationUpdatedByNavigations { get; set; } = new List<Notification>();
-
-    public virtual ICollection<Notification> NotificationUsers { get; set; } = new List<Notification>();
-
-    public virtual ICollection<Pet> PetCreatedByNavigations { get; set; } = new List<Pet>();
-
-    public virtual ICollection<Pet> PetOwners { get; set; } = new List<Pet>();
-
-    public virtual ICollection<Pet> PetUpdateByNavigations { get; set; } = new List<Pet>();
-
-    public virtual ICollection<Pet> PetVeterinarians { get; set; } = new List<Pet>();
-
-    public virtual ICollection<PetVeterinarian> PetVeterinariansNavigation { get; set; } = new List<PetVeterinarian>();
-
-    public virtual ICollection<UserProfile> UserProfileCreatedByNavigations { get; set; } = new List<UserProfile>();
-
-    public virtual ICollection<UserProfile> UserProfileUpdatedByNavigations { get; set; } = new List<UserProfile>();
-
-    public virtual UserProfile? UserProfileUser { get; set; }
+    public void UpdateProfile(string newEmail)
+    {
+        Email = newEmail;
+    }
 }
