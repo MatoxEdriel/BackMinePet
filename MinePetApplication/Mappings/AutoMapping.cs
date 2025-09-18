@@ -1,23 +1,32 @@
 using AutoMapper;
 using Domain.Entities;
+using Infrastructure.EF;
 using Presentations.DTOs;
+using User = Domain.Entities.User;
+using UserProfile = Domain.Entities.UserProfile;
 
 namespace Application.Mappings;
 
-//Esto hara los mapeos (source ---> Destination)
 public class AutoMapping : Profile
 {
     public AutoMapping()
     {
-        //Source va a ser los Dtos que viene del front el que cree para recibir 
-        //En mi caso seria -------  es decir cuando me entreguen a registerUserDto me lo convierta en uSER
-        //es lo que hacia manualmente 
+      
         CreateMap<RegisterUsertDto, User>();
 
+      
+        CreateMap<User, Infrastructure.EF.User>()
+            .ForMember(dest => dest.UserProfileUser, opt => opt.MapFrom(src => src.UserProfile));
+        CreateMap<Infrastructure.EF.User, User>()
+            .ForPath(src => src.UserProfile, opt => opt.MapFrom(dest => dest.UserProfileUser));
+
+
+       
+        CreateMap<UserProfile, Infrastructure.EF.UserProfile>();
+
+        CreateMap<Infrastructure.EF.UserProfile, UserProfile>()
+         
+            .ForMember(dest => dest.User, opt => opt.Ignore());
+            
     }
-    
-    
-    
-    
-    
 }
