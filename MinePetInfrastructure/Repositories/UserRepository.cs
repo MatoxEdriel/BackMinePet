@@ -66,7 +66,9 @@ public class UserRepository: IUserRepository
 
     public async Task<User?> GetByEmailAsync(string email)
     {
-        var userFromDb = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+        var userFromDb = await _context.Users
+            .Include(u => u.UserProfileUser)
+            .FirstOrDefaultAsync(u => u.Email == email);
         return _mapper.Map<User?>(userFromDb);
     }
    

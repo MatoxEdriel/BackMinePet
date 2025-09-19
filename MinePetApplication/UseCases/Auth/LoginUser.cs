@@ -23,6 +23,16 @@ public class LoginUser
     {
         var user = await _userRepo.GetByEmailAsync(request.email);
 
+        if (user == null)
+        {
+            throw new InvalidOperationException("Usuario no encontrado");
+        }
+
+        if (user.UserProfile == null)
+        {
+            throw new InvalidOperationException("El perfil de usuario no está configurado");
+        }
+        
         if (user == null || !BCrypt.Net.BCrypt.Verify(request.password, user.PasswordHash))
             throw new UnauthorizedAccessException("Invalid credentials");
 
@@ -33,7 +43,8 @@ public class LoginUser
             UserId = user.UserId,
             Email = user.Email,
             Role = user.RoleId.ToString(),
-            Token = token
+            Token = token,
+            Alias = user.UserProfile.Alias
         };
     }
 

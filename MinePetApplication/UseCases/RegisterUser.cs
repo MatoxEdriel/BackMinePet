@@ -6,6 +6,7 @@ using Presentations.DTOs;
 
 namespace Application.UseCases;
 
+
 public class RegisterUser
 {
     private readonly IUserRepository _userRepository;
@@ -33,6 +34,4 @@ public class RegisterUser
       return await _userRepository.CreateUserAsync(userRegister);
 
     }
-
- 
 }

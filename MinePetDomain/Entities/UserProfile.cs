@@ -27,6 +27,8 @@ public class UserProfile
         UserId = user.UserId;
         Name = name;
         LastName = lastName;
+        
+        Alias = $"{Name} " +" "+ $"{LastName}".Replace(" ", "").ToLower();
     }
 
   

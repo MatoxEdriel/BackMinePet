@@ -10,7 +10,7 @@ public class User
     public DateTime CreatedAt { get; set; }
 
     
-    public virtual UserProfile? UserProfile { get; set; }
+    public virtual UserProfile UserProfile { get; set; }
 
     private User() { }
     public User(string email, string passwordHash, int roleId)
