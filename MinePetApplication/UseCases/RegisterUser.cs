@@ -22,15 +22,16 @@ public class RegisterUser
 
     
     public async Task<User> ExecuteAsync(RegisterUsertDto dto)
-    {
+    { 
       var userRegister = _mapper.Map<User>(dto);
-      
+      Console.WriteLine("prueba2" + dto.Name);
       userRegister.PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password);
       userRegister.IsActive = true;
       userRegister.CreatedAt= DateTime.Now;
-      var newUserProfile = new UserProfile(userRegister, dto.Name, dto.LastName);
-      userRegister.UserProfile = newUserProfile;
+      var newUserProfile = new UserProfile(userRegister, dto.Name, dto.LastName, dto.Phone);
       
+      userRegister.UserProfile = newUserProfile;
+      Console.WriteLine("prueba " + userRegister.UserProfile.Phone);
       return await _userRepository.CreateUserAsync(userRegister);
 
     }

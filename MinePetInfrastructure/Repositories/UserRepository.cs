@@ -37,7 +37,6 @@ public class UserRepository: IUserRepository
     public async Task<User> CreateUserAsync(User user)
     {
         var userToDb = _mapper.Map<Infrastructure.EF.User>(user); 
-
         await _context.Users.AddAsync(userToDb);
         await _context.SaveChangesAsync();
 

@@ -22,30 +22,21 @@ public class LoginUser
     public async Task<LoginResponseDto> ExecuteAsync(LoginRequestDto request)
     {
         var user = await _userRepo.GetByEmailAsync(request.email);
-
-        if (user == null)
-        {
-            throw new InvalidOperationException("Usuario no encontrado");
-        }
-
-        if (user.UserProfile == null)
-        {
-            throw new InvalidOperationException("El perfil de usuario no está configurado");
-        }
-        
         if (user == null || !BCrypt.Net.BCrypt.Verify(request.password, user.PasswordHash))
             throw new UnauthorizedAccessException("Invalid credentials");
 
         var token = _jwtService.GenerateToken(user);
-
+        Console.WriteLine("DEBUG PHONE: " + user.UserProfile.Phone);
         return new LoginResponseDto
         {
             UserId = user.UserId,
             Email = user.Email,
             Role = user.RoleId.ToString(),
             Token = token,
-            Alias = user.UserProfile.Alias
+            Alias = user.UserProfile.Alias,
+            Phone = user.UserProfile.Phone
         };
+        
     }
 
 

@@ -16,7 +16,7 @@ public class UserProfile
 
     private UserProfile() { }
 
-    public UserProfile(User user, string name, string lastName)
+    public UserProfile(User user, string name, string lastName, string phone)
     {
         if (string.IsNullOrWhiteSpace(name))
             throw new ArgumentException("El nombre es requerido.");
@@ -27,6 +27,7 @@ public class UserProfile
         UserId = user.UserId;
         Name = name;
         LastName = lastName;
+        Phone = phone;
         
         Alias = $"{Name} " +" "+ $"{LastName}".Replace(" ", "").ToLower();
     }

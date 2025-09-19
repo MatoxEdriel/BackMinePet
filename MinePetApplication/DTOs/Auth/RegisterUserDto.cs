@@ -13,7 +13,7 @@ public class RegisterUsertDto
         Password = password;
         Name = name;
         LastName = lastName;
-        PhoneNumber = phoneNumber;
+        Phone= phoneNumber;
     }
 
     public string Email { get; set; }
@@ -21,6 +21,6 @@ public class RegisterUsertDto
     public string Name { get; set; }
     public string LastName { get; set; }
     
-    public string? PhoneNumber { get; set; }
+    public string? Phone { get; set; }
     
 }
