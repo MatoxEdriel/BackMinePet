@@ -1,3 +1,4 @@
+using AutoMapper;
 using Domain.Interfaces;
 using Domain.Interfaces.Repo;
 using Domain.Interfaces.Services;
@@ -10,14 +11,16 @@ namespace Application.UseCases.Auth;
 public class LoginUser
 {
     private readonly IUserRepository _userRepo;
-    private readonly IJwtService _jwtService;
+    private readonly ITokenService _tokenService;
     private readonly IPasswordService _passwordService;
+    private readonly IMapper _mapper;
 
-    public LoginUser(IUserRepository userRepository, IJwtService jwtService, IPasswordService passwordService)
+    public LoginUser(IUserRepository userRepository, IPasswordService passwordService, ITokenService tokenService, IMapper mapper)
     {
         _userRepo = userRepository;
-        _jwtService = jwtService;
+        _tokenService = tokenService;
         _passwordService = passwordService;
+        _mapper = mapper;
     }
 
 
@@ -26,16 +29,10 @@ public class LoginUser
         var user = await _userRepo.GetByEmailAsync(request.email);
         if(user == null || !_passwordService.VerifyPassword(request.password, user.PasswordHash))
             throw new UnauthorizedAccessException("Invalid credentials");
+        var token = _tokenService.GenerateToken(user);
+        var responseDto = _mapper.Map<LoginResponseDto>(user);
+        responseDto.Token = token;
+        return responseDto;
         
-        var token = _jwtService.GenerateToken(user);
-        return new LoginResponseDto
-        {
-            UserId = user.UserId,
-            Email = user.Email,
-            Role = user.RoleId.ToString(),
-            Token = token,
-            Alias = user.UserProfile.Alias,
-            Phone = user.UserProfile.Phone,
-        };
     }
 }

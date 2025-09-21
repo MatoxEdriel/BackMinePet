@@ -7,6 +7,7 @@ using Domain.Interfaces.Services;
 using Domain.Services;
 using Infrastructure.context;
 using Microsoft.EntityFrameworkCore;
+using Presentations.middleware;
 using Presentations.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,13 +20,15 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 
 builder.Services.AddScoped<IPasswordService, BcrypPasswordService>();
+
+builder.Services.AddScoped<ITokenService, JwtTokenService>();
     
     
 builder.Services.AddScoped<RegisterUser>();
 builder.Services.AddScoped<LoginUser>();
 
 
-builder.Services.AddScoped<IJwtService, JwtService>();
+// builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddControllers();
 
 
@@ -78,14 +81,15 @@ builder.Services.AddSwaggerGen(c =>
 
 
 var app = builder.Build();
+app.UseMiddleware<ErrorHandle>();
 app.MapGet("/", (HttpContext context) =>
 {
     context.Response.Redirect("/swagger/index.html" , permanent:false );
 
 });
 
-//Mejor considerar dos ambientes cuando ya se lance 
-app.UseSwagger(); //aqui se activaria en el pipeline 
+
+app.UseSwagger(); 
 app.UseSwaggerUI();
 
 app.UseHttpsRedirection();

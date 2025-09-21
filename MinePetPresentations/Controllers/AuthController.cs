@@ -32,28 +32,11 @@ public class AuthController: ControllerBase
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginRequestDto request)
     {
-        try
-        {
             var response = await _loginUser.ExecuteAsync(request);
             return Ok(ApiResponse<LoginResponseDto>.CreateSuccess(
                     data: response,
                     message: "Login Successful"
                 )
             );
-        }
-        catch (UnauthorizedAccessException)
-        {
-            return Unauthorized(
-                ApiResponse<LoginResponseDto>.Unauthorized("Credentials Invalids")
-                );
-        }
     }
-    
-
-
-
-
-
-
-
 }

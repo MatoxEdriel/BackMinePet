@@ -11,7 +11,13 @@ public class AutoMapping : Profile
 {
     public AutoMapping()
     {
-      
+
+        CreateMap<User, LoginResponseDto>()
+            .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.RoleId.ToString()))
+            .ForMember(dest => dest.Alias, opt => opt.MapFrom(src => src.UserProfile.Alias))
+            .ForMember(dest => dest.Phone, opt => opt.MapFrom(src => src.UserProfile.Phone));
+        
+        
         CreateMap<RegisterUsertDto, User>();
         
         CreateMap<User, Infrastructure.EF.User>()
