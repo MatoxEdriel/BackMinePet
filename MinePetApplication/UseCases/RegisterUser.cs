@@ -1,3 +1,4 @@
+using Application.DTOs.Auth;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Interfaces;
@@ -24,7 +25,6 @@ public class RegisterUser
     public async Task<User> ExecuteAsync(RegisterUsertDto dto)
     { 
       var userRegister = _mapper.Map<User>(dto);
-      Console.WriteLine("prueba2" + dto.Name);
       userRegister.PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password);
       userRegister.IsActive = true;
       userRegister.CreatedAt= DateTime.Now;

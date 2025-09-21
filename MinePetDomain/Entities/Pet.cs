@@ -6,16 +6,17 @@ public class Pet
     public string Name { get; private set; }
     public string Species { get; private set; }
     public string Breed { get; private set; }
+    public DateTime CreatedAt { get; set; }
+    
     public DateOnly BirthDate { get; private set; }
     public string Gender { get; private set; }
-    public bool IsActive { get; private set; }
+    public bool IsActive { get; set; }
 
     public int OwnerId { get; private set; }
     public virtual User Owner { get; private set; }
     
-    public int? VeterinarianId { get; private set; }
-    public virtual User? Veterinarian { get; private set; }
 
+    public virtual ICollection<User> Veterinarians { get; set; } = new List<User>();
     public int Age
     {
         get
@@ -45,6 +46,20 @@ public class Pet
         Gender = gender;
         IsActive = true;
     }
+    
+    public void AssignVeterinarian(User veterinarian)
+    {
+        if (veterinarian == null)
+            throw new ArgumentNullException(nameof(veterinarian));
+        if (!Veterinarians.Contains(veterinarian))
+            Veterinarians.Add(veterinarian);
+    }
+
+    public void RemoveVeterinarian(User veterinarian)
+    {
+        if (veterinarian != null && Veterinarians.Contains(veterinarian))
+            Veterinarians.Remove(veterinarian);
+    }
 
     public void UpdateDetails(string newName, string newBreed)
     {
@@ -58,11 +73,7 @@ public class Pet
         }
     }
 
-    public void AssignVeterinarian(User? veterinarian)
-    {
-        Veterinarian = veterinarian;
-        VeterinarianId = veterinarian?.UserId;
-    }
+
 
     public void Deactivate()
     {

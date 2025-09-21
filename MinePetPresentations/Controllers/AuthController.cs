@@ -1,8 +1,11 @@
+using Application.DTOs.Auth;
 using Application.UseCases.Auth;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Presentations.DTOs;
+using Presentations.DTOs.Auth;
 using Presentations.DTOs.Responses;
+using LoginResponseDto = Presentations.DTOs.LoginResponseDto;
 
 namespace Presentations.Controllers;
 
@@ -15,10 +18,11 @@ namespace Presentations.Controllers;
 public class AuthController: ControllerBase
 {
     private readonly LoginUser _loginUser;
+    private readonly IMapper _mapper;
 
-    public AuthController(LoginUser loginUser)
+    public AuthController(LoginUser loginUser, IMapper mapper)
     {
-        
+        _mapper = mapper;
         _loginUser = loginUser;
     }
     
@@ -30,9 +34,10 @@ public class AuthController: ControllerBase
     /// <response code="200">Login exitoso</response>
     /// <response code="401">Credenciales inválidas</response>
     [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] LoginRequestDto request)
+    public async Task<IActionResult> Login([FromBody] LoginRequestDtoFront request)
     {
-            var response = await _loginUser.ExecuteAsync(request);
+            var command = _mapper.Map<LoginRequestDto>(request);
+            var response = await _loginUser.ExecuteAsync(command);
             return Ok(ApiResponse<LoginResponseDto>.CreateSuccess(
                     data: response,
                     message: "Login Successful"

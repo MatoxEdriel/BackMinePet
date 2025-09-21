@@ -1,7 +1,13 @@
-namespace Presentations.DTOs;
+namespace Application.DTOs.Auth;
 
 public class LoginRequestDto
 {
-    public string email { get; set; }
-    public string password { get; set; }
+    public string Email { get; }
+    public string Password { get; }
+
+    public LoginRequestDto(string email, string password)
+    {
+        Email = email;
+        Password = password;
+    }
 }

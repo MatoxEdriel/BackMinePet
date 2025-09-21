@@ -1,3 +1,4 @@
+using Application.DTOs.Auth;
 using Application.DTOs.User;
 using Application.UseCases;
 using Domain.Entities;
@@ -20,16 +21,21 @@ public class UserController: ControllerBase
         _registerUser = registerUser;  
     }
     
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dto"></param>
+    /// <returns></returns>
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] RegisterUsertDto dto)
     {
         var newUser = await _registerUser.ExecuteAsync(dto);
         
-        
-        var userResponse = new UserRegisterResponseDto()
+            
+            var userResponse = new UserRegisterResponseDto()
         {
             Name = newUser.UserProfile?.Name
         };
-        return Ok(userResponse);  
+            return Ok(userResponse);  
     }
 }

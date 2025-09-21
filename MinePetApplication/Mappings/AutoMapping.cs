@@ -1,7 +1,11 @@
+using Application.DTOs.Auth;
+using Application.DTOs.Pet;
 using AutoMapper;
 using Domain.Entities;
 using Infrastructure.EF;
+using Microsoft.AspNetCore.Identity.Data;
 using Presentations.DTOs;
+
 using Pet = Domain.Entities.Pet;
 using User = Domain.Entities.User;
 using UserProfile = Domain.Entities.UserProfile;
@@ -14,6 +18,13 @@ public class AutoMapping : Profile
     {
         CreateMap<Infrastructure.EF.Pet, Pet>();
         
+        //recordemos como era esto del mapeo
+        // la parte izquierda es del soruce y derecha
+        //destinartion 
+        
+        CreateMap<PetRegisterDto, Pet>();
+        
+        //OJO CASO DE USO ESPECIAL
         
         CreateMap<Pet, Infrastructure.EF.Pet>();
         

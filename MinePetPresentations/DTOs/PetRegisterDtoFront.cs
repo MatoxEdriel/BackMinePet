@@ -1,7 +1,17 @@
-namespace Application.DTOs.Pet;
+namespace Presentations.DTOs;
 
-public class PetRegisterDto
+public class PetRegisterDtoFront
 {
+    public PetRegisterDtoFront(string name, string species, string breed, DateOnly birthDate, string gender, int? ownerId)
+    {
+        Name = name;
+        Species = species;
+        Breed = breed;
+        BirthDate = birthDate;
+        Gender = gender;
+        OwnerId = ownerId;
+    }
+
     public string Name { get; set; }
     public string Species { get; set; }
     public string Breed { get; set; }
@@ -16,5 +26,5 @@ public class PetRegisterDto
     //Solo me abstendre de poner el id 
     //lo recomendable es de tener una especie de  placeholder
     public int? OwnerId { get; set; }
-    
+
 }

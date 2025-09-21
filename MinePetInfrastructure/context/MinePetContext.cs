@@ -166,9 +166,9 @@ public partial class MinePetContext : DbContext
                 .HasForeignKey(d => d.UpdateBy)
                 .HasConstraintName("FK__Pets__UpdateBy__4AB81AF0");
 
-            entity.HasOne(d => d.Veterinarian).WithMany(p => p.PetVeterinarians)
-                .HasForeignKey(d => d.VeterinarianId)
-                .HasConstraintName("FK__Pets__Veterinari__4CA06362");
+            // entity.HasOne(d => d.Veterinarian).WithMany(p => p.PetVeterinarians)
+            //     .HasForeignKey(d => d.VeterinarianId)
+            //     .HasConstraintName("FK__Pets__Veterinari__4CA06362");
         });
 
         modelBuilder.Entity<PetVeterinarian>(entity =>

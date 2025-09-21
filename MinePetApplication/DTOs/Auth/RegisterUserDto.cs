@@ -1,4 +1,4 @@
-namespace Presentations.DTOs;
+namespace Application.DTOs.Auth;
 
 public class RegisterUsertDto
 {

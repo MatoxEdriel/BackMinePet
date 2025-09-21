@@ -1,3 +1,4 @@
+using Application.DTOs.Auth;
 using AutoMapper;
 using Domain.Interfaces;
 using Domain.Interfaces.Repo;
@@ -26,8 +27,9 @@ public class LoginUser
 
     public async Task<LoginResponseDto> ExecuteAsync(LoginRequestDto request)
     {
-        var user = await _userRepo.GetByEmailAsync(request.email);
-        if(user == null || !_passwordService.VerifyPassword(request.password, user.PasswordHash))
+        
+        var user = await _userRepo.GetByEmailAsync(request.Email);
+        if(user == null || !_passwordService.VerifyPassword(request.Password, user.PasswordHash))
             throw new UnauthorizedAccessException("Invalid credentials");
         var token = _tokenService.GenerateToken(user);
         var responseDto = _mapper.Map<LoginResponseDto>(user);
