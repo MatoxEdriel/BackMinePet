@@ -16,8 +16,7 @@ public partial class Pet
     public DateOnly? BirthDate { get; set; }
 
     public string? Gender { get; set; }
-
-    public int? VeterinarianId { get; set; }
+    
 
     public DateTime? CreatedAt { get; set; }
 
@@ -41,5 +40,4 @@ public partial class Pet
 
     public virtual Infrastructure.EF.User? UpdateByNavigation { get; set; }
 
-    public virtual Infrastructure.EF.User? Veterinarian { get; set; }
 }

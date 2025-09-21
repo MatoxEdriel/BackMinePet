@@ -50,7 +50,7 @@ public class UserRepository: IUserRepository
         _context.Users.Update(userToDb);
         await _context.SaveChangesAsync();
 
-        return user;
+        return _mapper.Map<User>(userToDb);
     }
 
     public async Task DeleteUserAsync(int id)
