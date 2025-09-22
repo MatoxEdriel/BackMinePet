@@ -43,8 +43,12 @@ builder.Services.AddCors(options =>
         });
 });
 
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+
+builder.Services.AddAutoMapper(
+    typeof(Application.Mappings.AutoMapping).Assembly,
+    typeof(Presentations.Mappings.PresentationMapping).Assembly
+);
 
 
 builder.Services.AddSwaggerGen(c =>
