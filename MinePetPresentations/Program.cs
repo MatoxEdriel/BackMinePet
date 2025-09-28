@@ -1,9 +1,6 @@
 using Infrastructure.Repositories;
-using Application.UseCases;
 using Application.UseCases.Auth;
-using Domain.Interfaces;
 using Domain.Interfaces.Repo;
-using Domain.Interfaces.Services;
 using Domain.Services;
 using Infrastructure.context;
 using Microsoft.EntityFrameworkCore;
@@ -24,11 +21,9 @@ builder.Services.AddScoped<IPasswordService, BcrypPasswordService>();
 builder.Services.AddScoped<ITokenService, JwtTokenService>();
     
     
-builder.Services.AddScoped<RegisterUser>();
 builder.Services.AddScoped<LoginUser>();
 
 
-// builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddControllers();
 
 
@@ -46,9 +41,7 @@ builder.Services.AddCors(options =>
 
 
 builder.Services.AddAutoMapper(
-    typeof(Application.Mappings.AutoMapping).Assembly,
-    typeof(Presentations.Mappings.PresentationMapping).Assembly
-);
+    typeof(Application.Mappings.AutoMapping).Assembly);
 
 
 builder.Services.AddSwaggerGen(c =>

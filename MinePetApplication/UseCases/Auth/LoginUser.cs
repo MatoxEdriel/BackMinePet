@@ -27,7 +27,6 @@ public class LoginUser
 
     public async Task<LoginResponseDto> ExecuteAsync(LoginRequestDto request)
     {
-        
         var user = await _userRepo.GetByEmailAsync(request.Email);
         if(user == null || !_passwordService.VerifyPassword(request.Password, user.PasswordHash))
             throw new UnauthorizedAccessException("Invalid credentials");

@@ -15,6 +15,6 @@ public class PetRegisterDto
     //de vincular dicha mascota POR AHORA 
     //Solo me abstendre de poner el id 
     //lo recomendable es de tener una especie de  placeholder
-    public int? OwnerId { get; set; }
+    public int OwnerId { get; set; }
     
 }

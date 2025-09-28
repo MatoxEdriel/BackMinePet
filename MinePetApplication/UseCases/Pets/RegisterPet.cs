@@ -23,6 +23,7 @@ public class RegisterPet
 ;        var petRegister = _mapper.Map<Pet>(dto);
         petRegister.CreatedAt = DateTime.Now;
         petRegister.IsActive = true;
+        
         //Por ahora no hare las relaciones pero es un dato que/
         //necesito evaluarlo 
 

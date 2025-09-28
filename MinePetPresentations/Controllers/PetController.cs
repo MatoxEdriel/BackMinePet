@@ -25,10 +25,9 @@ public class PetController: ControllerBase
     /// <param name="dto"></param>
     /// <returns></returns>
     [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] PetRegisterDtoFront dto)
+    public async Task<IActionResult> Register([FromBody] PetRegisterDto dto)
     {
-        var command = _mapper.Map<PetRegisterDto>(dto);
-        var newPet = await _registerPet.ExecuteAsync(command);
+        var newPet = await _registerPet.ExecuteAsync(dto);
         var petResponse = new PetRegisterDtoResponse()
         {
             Name  = newPet.Name,

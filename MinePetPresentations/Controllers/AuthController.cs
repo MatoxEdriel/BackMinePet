@@ -3,7 +3,6 @@
     using AutoMapper;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using Presentations.DTOs.Auth;
     using Presentations.DTOs.Responses;
     using LoginResponseDto = Presentations.DTOs.LoginResponseDto;
 
@@ -34,11 +33,10 @@
         /// <response code="200">Login exitoso</response>
         /// <response code="401">Credenciales inválidas</response>
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginRequestDtoFront request)
+        public async Task<IActionResult> Login([FromBody] LoginRequestDto request)
         {
-                var command = _mapper.Map<LoginRequestDto>(request);
-                
-                var response = await _loginUser.ExecuteAsync(command);
+            //la necesidad de usar dos dto no tiene sentido
+                var response = await _loginUser.ExecuteAsync(request);
                 return Ok(ApiResponse<LoginResponseDto>.CreateSuccess(
                         data: response,
                         message: "Login Successful"
