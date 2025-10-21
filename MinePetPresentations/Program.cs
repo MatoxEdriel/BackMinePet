@@ -1,16 +1,16 @@
+using Application;
 using Application.UseCases.Auth;
 using Domain.Interfaces.Repo;
 using Domain.Services;
+using Infrastructure;
 using Presentations.middleware;
 using Presentations.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAutoMapper(typeof(Application.Mappings.AutoMapping).Assembly);
-builder.Services.AddDbContext<MinePetContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
-);
 
-builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddApplication();
 
 
 builder.Services.AddScoped<IPasswordService, BcrypPasswordService>();
