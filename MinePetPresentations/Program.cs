@@ -7,7 +7,6 @@ using Presentations.middleware;
 using Presentations.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddAutoMapper(typeof(Application.Mappings.AutoMapping).Assembly);
 
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
@@ -37,8 +36,6 @@ builder.Services.AddCors(options =>
 
 
 
-builder.Services.AddAutoMapper(
-    typeof(Application.Mappings.AutoMapping).Assembly);
 
 
 builder.Services.AddSwaggerGen(c =>
