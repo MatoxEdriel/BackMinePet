@@ -1,8 +1,6 @@
 using Application.DTOs.Auth;
 using AutoMapper;
-using Domain.Interfaces;
 using Domain.Interfaces.Repo;
-using Domain.Interfaces.Services;
 using Domain.Services;
 using Presentations.DTOs;
 

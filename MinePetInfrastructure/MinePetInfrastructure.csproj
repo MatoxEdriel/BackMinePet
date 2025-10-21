@@ -23,6 +23,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\MinePetApplication\MinePetApplication.csproj" />
       <ProjectReference Include="..\MinePetDomain\MinePetDomain.csproj" />
     </ItemGroup>
 

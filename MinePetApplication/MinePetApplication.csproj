@@ -9,7 +9,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\MinePetInfrastructure\MinePetInfrastructure.csproj" />
+      <ProjectReference Include="..\MinePetDomain\MinePetDomain.csproj" />
     </ItemGroup>
 
     <ItemGroup>

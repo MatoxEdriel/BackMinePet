@@ -1,14 +1,11 @@
-using Infrastructure.Repositories;
 using Application.UseCases.Auth;
 using Domain.Interfaces.Repo;
 using Domain.Services;
-using Infrastructure.context;
-using Microsoft.EntityFrameworkCore;
 using Presentations.middleware;
 using Presentations.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddAutoMapper(typeof(Application.Mappings.AutoMapping).Assembly);
 builder.Services.AddDbContext<MinePetContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
