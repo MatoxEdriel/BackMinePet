@@ -30,14 +30,14 @@ public class AutoMapping : Profile
         
         /*
         CreateMap<Pet, Infrastructure.EF.Pet>();
-        
+        */
         
         CreateMap<User, LoginResponseDto>()
             .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.RoleId.ToString()))
             .ForMember(dest => dest.Alias, opt => opt.MapFrom(src => src.UserProfile.Alias))
             .ForMember(dest => dest.Phone, opt => opt.MapFrom(src => src.UserProfile.Phone));
         
-        */
+        
         CreateMap<RegisterUsertDto, User>();
         
         

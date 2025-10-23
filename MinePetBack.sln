@@ -1,12 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinePetInfrastructure", "MinePetInfrastructure\MinePetInfrastructure.csproj", "{F769454F-0387-4010-914E-E18B87A76313}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{F769454F-0387-4010-914E-E18B87A76313}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinePetApplication", "MinePetApplication\MinePetApplication.csproj", "{45A88AD0-56D3-4C9B-8551-9A52A797EFDA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{45A88AD0-56D3-4C9B-8551-9A52A797EFDA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinePetDomain", "MinePetDomain\MinePetDomain.csproj", "{445678C2-9D1E-4863-9E29-0E67EC417A29}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{445678C2-9D1E-4863-9E29-0E67EC417A29}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinePetPresentations", "MinePetPresentations\MinePetPresentations.csproj", "{8598C4C7-70C5-4E73-9345-3F2E578EDD17}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presentations", "Presentations\Presentations.csproj", "{8598C4C7-70C5-4E73-9345-3F2E578EDD17}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

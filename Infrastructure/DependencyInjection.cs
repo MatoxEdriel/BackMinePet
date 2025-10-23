@@ -1,5 +1,6 @@
 using Domain.Interfaces.Repo;
 using Infrastructure.context;
+using Infrastructure.Mappings;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -15,6 +16,7 @@ public static class DependencyInjection
             options.UseSqlServer(configuration.GetConnectionString("MinePetContext")));
 
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddAutoMapper(typeof(MappingProfile).Assembly);
 
         return services;
     }
