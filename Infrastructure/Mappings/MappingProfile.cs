@@ -1,30 +1,29 @@
 using AutoMapper;
 using Infrastructure.EF;
-using DomainUser = Domain.Entities.User;
-using EfUser = Infrastructure.EF.User;
-using UserProfileDomain = Domain.Entities.UserProfile;
-using PetDomain = Domain.Entities.Pet;
+using Domain.Entities;
 
-namespace Infrastructure.Mappings
+namespace Infrastructure.Mappings;
+
+public class MappingProfile : Profile
 {
-    public class MappingProfile : Profile
+    public MappingProfile()
     {
-        public MappingProfile()
-        {
-            CreateMap<DomainUser, EfUser>()
-                .ForMember(dest => dest.UserProfileUser, opt => opt.MapFrom(src => src.UserProfile))
-                .ReverseMap()
-                .ForMember(dest => dest.UserId, opt => opt.Ignore())
-                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
-                .ForMember(dest => dest.UserProfile, opt => opt.MapFrom(src => src.UserProfileUser))
-                .ForAllMembers(opt => opt.Condition((src, dest, srcMember) => srcMember != null));
+        Console.WriteLine("      MappingProfile (Infrastructure) cargado correctamente ✅");
 
-            CreateMap<UserProfileDomain, UserProfile>()
-                .ForMember(dest => dest.User, opt => opt.Ignore()) // Evita loop y private set
-                .ReverseMap()
-                .ForMember(dest => dest.User, opt => opt.Ignore());
+        CreateMap<Infrastructure.EF.User, Domain.Entities.User>()
+            .ForMember(dest => dest.UserProfile, opt => opt.MapFrom(src => src.UserProfileUser))
+            .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId));
 
-            CreateMap<PetDomain, Pet>().ReverseMap();
-        }
+        CreateMap<Infrastructure.EF.UserProfile, Domain.Entities.UserProfile>()
+            .ForMember(dest => dest.User, opt => opt.Ignore()); // rompe el ciclo
+
+        CreateMap<Domain.Entities.User, Infrastructure.EF.User>()
+            .ForMember(dest => dest.UserProfileUser, opt => opt.MapFrom(src => src.UserProfile))
+            .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId));
+
+        CreateMap<Domain.Entities.UserProfile, Infrastructure.EF.UserProfile>()
+            .ForMember(dest => dest.User, opt => opt.Ignore());
+
+        Console.WriteLine("✅ Mapeos EF ↔ Domain registrados correctamente");
     }
 }
