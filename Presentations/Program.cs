@@ -9,6 +9,9 @@ using Presentations.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddInfrastructure(builder.Configuration);
+
+
+//Aqui agrego las dependency injection 
 builder.Services.AddApplication();
 
 
@@ -16,8 +19,7 @@ builder.Services.AddScoped<IPasswordService, BcrypPasswordService>();
 
 builder.Services.AddScoped<ITokenService, JwtTokenService>();
     
-    
-builder.Services.AddScoped<LoginUser>();
+
 
 
 builder.Services.AddControllers();

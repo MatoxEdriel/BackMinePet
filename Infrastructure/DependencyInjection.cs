@@ -16,7 +16,7 @@ public static class DependencyInjection
             options.UseSqlServer(configuration.GetConnectionString("MinePetContext")));
 
         services.AddScoped<IUserRepository, UserRepository>();
-        services.AddAutoMapper(typeof(MappingProfile).Assembly);
+        services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
         return services;
     }

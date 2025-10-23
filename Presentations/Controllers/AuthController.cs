@@ -4,7 +4,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Presentations.DTOs.Responses;
-    using LoginResponseDto = Presentations.DTOs.LoginResponseDto;
+    using LoginResponseDto = Application.DTOs.Auth.LoginResponseDto;
 
     namespace Presentations.Controllers;
 

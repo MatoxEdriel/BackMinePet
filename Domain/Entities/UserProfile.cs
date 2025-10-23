@@ -2,15 +2,15 @@ namespace Domain.Entities;
 
 public class UserProfile
 {
-    public int UserId { get; private set; }
+    public int UserId { get; set; }
     public string Name { get; private set; }
     public string LastName { get; private set; }
-    public string? Alias { get; private set; }
-    public string? Phone { get; private set; }
-    public string? IdentityNumber { get; private set; }
-    public string? ProfilePictureUrl { get; private set; }
+    public string? Alias { get; set; }
+    public string? Phone { get; set; }
+    public string? IdentityNumber { get; set; }
+    public string? ProfilePictureUrl { get; set; }
 
-    public virtual User User { get; private set; }
+    public virtual User User { get; set; }
 
     public string FullName => $"{Name} {LastName}";
 
