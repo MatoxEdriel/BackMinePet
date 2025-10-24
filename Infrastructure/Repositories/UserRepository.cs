@@ -65,39 +65,23 @@ public class UserRepository: IUserRepository
 
     public async Task<User?> GetByEmailAsync(string email)
     {
-        Console.WriteLine($"🔍 [UserRepository] Buscando usuario con email: {email}");
 
-        var userFromDb = await _context.Users
+        var user = await _context.Users
             .Include(u => u.UserProfileUser)
             .FirstOrDefaultAsync(u => u.Email == email);
 
-        if (userFromDb == null)
+        if (user == null)
         {
-            Console.WriteLine("⚠️ [UserRepository] No se encontró ningún usuario con ese correo.");
             return null;
         }
 
-        Console.WriteLine($"✅ [UserRepository] Usuario encontrado: {userFromDb.Email}");
-        Console.WriteLine($"🧩 [UserRepository] Intentando mapear EF → Domain...");
 
-        try
-        {
-            var mapped = _mapper.Map<User?>(userFromDb);
-            if (mapped == null)
-            {
-                Console.WriteLine("❌ [UserRepository] El mapeo devolvió NULL ❗");
-            }
-            else
-            {
-                Console.WriteLine($"✅ [UserRepository] Mapeo exitoso: {mapped.Email}");
-            }
+     
+        var mapped = _mapper.Map<User?>(user);
+       
             return mapped;
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"💥 [UserRepository] Error al mapear: {ex.Message}");
-            throw;
-        }
+        
+      
     }
     
 }

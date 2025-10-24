@@ -35,7 +35,7 @@
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequestDto request)
         {
-            //la necesidad de usar dos dto no tiene sentido
+          
                 var response = await _loginUser.ExecuteAsync(request);
                 return Ok(ApiResponse<LoginResponseDto>.CreateSuccess(
                         data: response,

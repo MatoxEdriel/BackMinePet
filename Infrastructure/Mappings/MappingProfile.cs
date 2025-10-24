@@ -8,7 +8,6 @@ public class MappingProfile : Profile
 {
     public MappingProfile()
     {
-        Console.WriteLine("      MappingProfile (Infrastructure) cargado correctamente ✅");
 
         CreateMap<Infrastructure.EF.User, Domain.Entities.User>()
             .ForMember(dest => dest.UserProfile, opt => opt.MapFrom(src => src.UserProfileUser))
@@ -24,6 +23,5 @@ public class MappingProfile : Profile
         CreateMap<Domain.Entities.UserProfile, Infrastructure.EF.UserProfile>()
             .ForMember(dest => dest.User, opt => opt.Ignore());
 
-        Console.WriteLine("✅ Mapeos EF ↔ Domain registrados correctamente");
     }
 }

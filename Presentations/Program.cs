@@ -3,6 +3,7 @@ using Application.UseCases.Auth;
 using Domain.Interfaces.Repo;
 using Domain.Services;
 using Infrastructure;
+using Presentations;
 using Presentations.middleware;
 using Presentations.Services;
 
@@ -10,15 +11,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddInfrastructure(builder.Configuration);
 
-
+//Solo llamadas declarativas nada de configuraciones 
 //Aqui agrego las dependency injection 
 builder.Services.AddApplication();
+builder.Services.AddPresentations();
 
 
-builder.Services.AddScoped<IPasswordService, BcrypPasswordService>();
 
-builder.Services.AddScoped<ITokenService, JwtTokenService>();
-    
 
 
 
@@ -75,6 +74,9 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 app.UseMiddleware<ErrorHandle>();
+app.UseGlobalErrorHandler();
+app.UseTenants();
+
 app.MapGet("/", (HttpContext context) =>
 {
     context.Response.Redirect("/swagger/index.html" , permanent:false );
