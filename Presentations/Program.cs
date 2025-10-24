@@ -19,6 +19,7 @@ builder.Services.AddPresentations();
 
 
 
+builder.Services.AddHttpContextAccessor();
 
 
 builder.Services.AddControllers();
@@ -73,7 +74,6 @@ builder.Services.AddSwaggerGen(c =>
 
 
 var app = builder.Build();
-app.UseMiddleware<ErrorHandle>();
 app.UseGlobalErrorHandler();
 app.UseTenants();
 
@@ -82,7 +82,6 @@ app.MapGet("/", (HttpContext context) =>
     context.Response.Redirect("/swagger/index.html" , permanent:false );
 
 });
-
 
 
 app.UseSwagger(); 

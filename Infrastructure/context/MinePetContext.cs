@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Infrastructure.EF;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Pet = Infrastructure.EF.Pet;
 using User = Infrastructure.EF.User;
@@ -9,13 +10,16 @@ namespace Infrastructure.context;
 
 public partial class MinePetContext : DbContext
 {
+    private readonly string _tenantSchema;
     public MinePetContext()
     {
     }
 
-    public MinePetContext(DbContextOptions<MinePetContext> options)
+    public MinePetContext(DbContextOptions<MinePetContext> options, IHttpContextAccessor httpContextAccessor)
         : base(options)
     {
+        _tenantSchema = httpContextAccessor.HttpContext?.Items["TenantSchema"]?.ToString() ?? "dbo";
+        //Por default pondre dbo xd
     }
 
     public virtual DbSet<Clinic> Clinics { get; set; }
@@ -40,6 +44,14 @@ public partial class MinePetContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+            
+        modelBuilder.HasDefaultSchema(_tenantSchema); //default xd dbo
+        modelBuilder.Entity<User>().ToTable("users");
+        //Debo cambiar aqui para que se desplace como es 
+        modelBuilder.Entity<UserProfile>().ToTable("user_profiles");
+        
+        
         modelBuilder.Entity<Clinic>(entity =>
         {
             entity.HasKey(e => e.ClinicId).HasName("PK__Clinics__3347C2DD6F76301C");

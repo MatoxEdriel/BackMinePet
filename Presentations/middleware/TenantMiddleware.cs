@@ -12,7 +12,13 @@ public class TenantMiddleware
 
     public async Task InvokeAsync(HttpContext context)
     {
-        //
+        //ignoraremos swaggaer
+        if (context.Request.Path.StartsWithSegments("/swagger") || context.Request.Path == "/")
+        {
+            await _next(context);
+            return;
+        }
+
         string? tenantId = null;
 
         if (context.Request.Headers.TryGetValue("X-Tenant-ID", out var tenantHeader))
