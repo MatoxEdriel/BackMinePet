@@ -1,8 +1,8 @@
 using AutoMapper;
-using Domain.Entities;
 using Domain.Interfaces.Repo;
-using Infrastructure.context;
+using Infrastructure.EF;
 using Microsoft.EntityFrameworkCore;
+using Pet = Domain.Entities.Pet;
 
 namespace Infrastructure.Repositories;
 
