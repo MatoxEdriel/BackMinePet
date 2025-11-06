@@ -1,4 +1,6 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+
 namespace Infrastructure.EF;
 
 public partial class User
@@ -43,13 +45,21 @@ public partial class User
 
     public virtual ICollection<Pet> PetUpdateByNavigations { get; set; } = new List<Pet>();
 
-    public virtual ICollection<Pet> PetVeterinarians { get; set; } = new List<Pet>();
+    public virtual ICollection<PetVeterinarian> PetVeterinarians { get; set; } = new List<PetVeterinarian>();
 
-    public virtual ICollection<PetVeterinarian> PetVeterinariansNavigation { get; set; } = new List<PetVeterinarian>();
+    public virtual ICollection<Prescription> PrescriptionCreatedByNavigations { get; set; } = new List<Prescription>();
+
+    public virtual ICollection<Prescription> PrescriptionOwners { get; set; } = new List<Prescription>();
+
+    public virtual ICollection<Prescription> PrescriptionVeterinarians { get; set; } = new List<Prescription>();
 
     public virtual ICollection<UserProfile> UserProfileCreatedByNavigations { get; set; } = new List<UserProfile>();
 
     public virtual ICollection<UserProfile> UserProfileUpdatedByNavigations { get; set; } = new List<UserProfile>();
 
     public virtual UserProfile? UserProfileUser { get; set; }
+
+    public virtual ICollection<UserRole> UserRoleCreatedByNavigations { get; set; } = new List<UserRole>();
+
+    public virtual ICollection<UserRole> UserRoleUsers { get; set; } = new List<UserRole>();
 }

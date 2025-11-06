@@ -1,4 +1,7 @@
-﻿namespace Infrastructure.EF;
+﻿using System;
+using System.Collections.Generic;
+
+namespace Infrastructure.EF;
 
 public partial class Notification
 {
@@ -30,11 +33,11 @@ public partial class Notification
 
     public virtual Consultation? Consultation { get; set; }
 
-    public virtual Infrastructure.EF.User? CreatedByNavigation { get; set; }
+    public virtual User? CreatedByNavigation { get; set; }
 
-    public virtual Infrastructure.EF.Pet? Pet { get; set; }
+    public virtual Pet? Pet { get; set; }
 
-    public virtual Infrastructure.EF.User? UpdatedByNavigation { get; set; }
+    public virtual User? UpdatedByNavigation { get; set; }
 
-    public virtual Infrastructure.EF.User User { get; set; } = null!;
+    public virtual User User { get; set; } = null!;
 }

@@ -1,4 +1,7 @@
-﻿namespace Infrastructure.EF;
+﻿using System;
+using System.Collections.Generic;
+
+namespace Infrastructure.EF;
 
 public partial class Clinic
 {
@@ -23,4 +26,6 @@ public partial class Clinic
     public int? UpdatedBy { get; set; }
 
     public virtual ICollection<Consultation> Consultations { get; set; } = new List<Consultation>();
+
+    public virtual ICollection<Prescription> Prescriptions { get; set; } = new List<Prescription>();
 }

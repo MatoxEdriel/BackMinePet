@@ -1,4 +1,7 @@
-﻿namespace Domain.Entities;
+﻿using System;
+using System.Collections.Generic;
+
+namespace Infrastructure.EF;
 
 public partial class Role
 {
@@ -13,4 +16,8 @@ public partial class Role
     public DateTime? CreatedAt { get; set; }
 
     public DateTime? UpdatedAt { get; set; }
+
+    public virtual ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
+
+    public virtual ICollection<Permission> Permissions { get; set; } = new List<Permission>();
 }

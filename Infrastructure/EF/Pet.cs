@@ -1,4 +1,6 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+
 namespace Infrastructure.EF;
 
 public partial class Pet
@@ -16,7 +18,6 @@ public partial class Pet
     public DateOnly? BirthDate { get; set; }
 
     public string? Gender { get; set; }
-    
 
     public DateTime? CreatedAt { get; set; }
 
@@ -30,14 +31,15 @@ public partial class Pet
 
     public virtual ICollection<Consultation> Consultations { get; set; } = new List<Consultation>();
 
-    public virtual Infrastructure.EF.User? CreatedByNavigation { get; set; }
+    public virtual User? CreatedByNavigation { get; set; }
 
     public virtual ICollection<Notification> Notifications { get; set; } = new List<Notification>();
 
-    public virtual Infrastructure.EF.User Owner { get; set; } = null!;
+    public virtual User Owner { get; set; } = null!;
 
     public virtual ICollection<PetVeterinarian> PetVeterinarians { get; set; } = new List<PetVeterinarian>();
 
-    public virtual Infrastructure.EF.User? UpdateByNavigation { get; set; }
+    public virtual ICollection<Prescription> Prescriptions { get; set; } = new List<Prescription>();
 
+    public virtual User? UpdateByNavigation { get; set; }
 }
