@@ -1,25 +1,18 @@
-﻿using Domain.Entities;
-using Infrastructure.EF;
-using Microsoft.AspNetCore.Http;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using Pet = Infrastructure.EF.Pet;
-using User = Infrastructure.EF.User;
-using UserProfile = Infrastructure.EF.UserProfile;
 
-namespace Infrastructure.context;
+namespace Infrastructure.EF;
 
 public partial class MinePetContext : DbContext
 {
-    private readonly string _tenantSchema;
     public MinePetContext()
     {
     }
 
-    public MinePetContext(DbContextOptions<MinePetContext> options, IHttpContextAccessor httpContextAccessor)
+    public MinePetContext(DbContextOptions<MinePetContext> options)
         : base(options)
     {
-        _tenantSchema = httpContextAccessor.HttpContext?.Items["TenantSchema"]?.ToString() ?? "dbo";
-        //Por default pondre dbo xd
     }
 
     public virtual DbSet<Clinic> Clinics { get; set; }
@@ -28,30 +21,32 @@ public partial class MinePetContext : DbContext
 
     public virtual DbSet<Notification> Notifications { get; set; }
 
+    public virtual DbSet<Permission> Permissions { get; set; }
+
     public virtual DbSet<Pet> Pets { get; set; }
 
     public virtual DbSet<PetVeterinarian> PetVeterinarians { get; set; }
 
+    public virtual DbSet<Prescription> Prescriptions { get; set; }
+
+    public virtual DbSet<PrescriptionItem> PrescriptionItems { get; set; }
+
     public virtual DbSet<Role> Roles { get; set; }
+
+    public virtual DbSet<Tenant> Tenants { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
 
     public virtual DbSet<UserProfile> UserProfiles { get; set; }
 
+    public virtual DbSet<UserRole> UserRoles { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=localhost;Database=minePet;User Id=sa;Password='Dragoncity5*';TrustServerCertificate=True;");
+        => optionsBuilder.UseSqlServer("Server=localhost;Database=minePet;User Id=sa;Password=Dragoncity5*;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(modelBuilder);
-            
-        modelBuilder.HasDefaultSchema(_tenantSchema); //default xd dbo
-        modelBuilder.Entity<User>().ToTable("users");
-        //Debo cambiar aqui para que se desplace como es 
-        modelBuilder.Entity<UserProfile>().ToTable("user_profiles");
-        
-        
         modelBuilder.Entity<Clinic>(entity =>
         {
             entity.HasKey(e => e.ClinicId).HasName("PK__Clinics__3347C2DD6F76301C");
@@ -80,9 +75,13 @@ public partial class MinePetContext : DbContext
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
+            entity.Property(e => e.Diagnosis).HasMaxLength(500);
             entity.Property(e => e.IsActive).HasDefaultValue(true);
             entity.Property(e => e.NextAppointment).HasColumnType("datetime");
+            entity.Property(e => e.Symptoms).HasMaxLength(500);
+            entity.Property(e => e.Temperature).HasColumnType("decimal(5, 2)");
             entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
+            entity.Property(e => e.Weight).HasColumnType("decimal(6, 2)");
 
             entity.HasOne(d => d.Clinic).WithMany(p => p.Consultations)
                 .HasForeignKey(d => d.ClinicId)
@@ -146,6 +145,23 @@ public partial class MinePetContext : DbContext
                 .HasConstraintName("FK_Notifications_User");
         });
 
+        modelBuilder.Entity<Permission>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Permissi__3213E83F4F9113B3");
+
+            entity.HasIndex(e => e.Name, "UQ__Permissi__72E12F1BBFD55207").IsUnique();
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Description)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("description");
+            entity.Property(e => e.Name)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("name");
+        });
+
         modelBuilder.Entity<Pet>(entity =>
         {
             entity.HasKey(e => e.PetId).HasName("PK__Pets__48E53862EBA6A6E4");
@@ -177,10 +193,6 @@ public partial class MinePetContext : DbContext
             entity.HasOne(d => d.UpdateByNavigation).WithMany(p => p.PetUpdateByNavigations)
                 .HasForeignKey(d => d.UpdateBy)
                 .HasConstraintName("FK__Pets__UpdateBy__4AB81AF0");
-
-            // entity.HasOne(d => d.Veterinarian).WithMany(p => p.PetVeterinarians)
-            //     .HasForeignKey(d => d.VeterinarianId)
-            //     .HasConstraintName("FK__Pets__Veterinari__4CA06362");
         });
 
         modelBuilder.Entity<PetVeterinarian>(entity =>
@@ -202,10 +214,73 @@ public partial class MinePetContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__PetVeteri__PetId__52593CB8");
 
-            entity.HasOne(d => d.Veterinarian).WithMany(p => p.PetVeterinariansNavigation)
+            entity.HasOne(d => d.Veterinarian).WithMany(p => p.PetVeterinarians)
                 .HasForeignKey(d => d.VeterinarianId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__PetVeteri__Veter__534D60F1");
+        });
+
+        modelBuilder.Entity<Prescription>(entity =>
+        {
+            entity.HasKey(e => e.PrescriptionId).HasName("PK__Prescrip__4013083294E61BF1");
+
+            entity.ToTable("Prescription");
+
+            entity.Property(e => e.CreatedAt)
+                .HasPrecision(3)
+                .HasDefaultValueSql("(sysdatetime())");
+            entity.Property(e => e.Notes).HasMaxLength(500);
+            entity.Property(e => e.Refills).HasDefaultValue(true);
+            entity.Property(e => e.Warnings).HasMaxLength(500);
+
+            entity.HasOne(d => d.Clinic).WithMany(p => p.Prescriptions)
+                .HasForeignKey(d => d.ClinicId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Prescriptions_Clinic");
+
+            entity.HasOne(d => d.Consultation).WithMany(p => p.Prescriptions)
+                .HasForeignKey(d => d.ConsultationId)
+                .HasConstraintName("FK_Prescriptions_Consultations");
+
+            entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.PrescriptionCreatedByNavigations)
+                .HasForeignKey(d => d.CreatedBy)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("FK_Prescriptions_CreatedBy");
+
+            entity.HasOne(d => d.Owner).WithMany(p => p.PrescriptionOwners)
+                .HasForeignKey(d => d.OwnerId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Prescriptions_Owner");
+
+            entity.HasOne(d => d.Pet).WithMany(p => p.Prescriptions)
+                .HasForeignKey(d => d.PetId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Prescriptions_Pet");
+
+            entity.HasOne(d => d.Veterinarian).WithMany(p => p.PrescriptionVeterinarians)
+                .HasForeignKey(d => d.VeterinarianId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Prescriptions_Veterinarian");
+        });
+
+        modelBuilder.Entity<PrescriptionItem>(entity =>
+        {
+            entity.HasKey(e => e.PrescriptionItemId).HasName("PK__Prescrip__1AADD9FAF50A04D6");
+
+            entity.Property(e => e.CreatedAt)
+                .HasPrecision(3)
+                .HasDefaultValueSql("(sysdatetime())");
+            entity.Property(e => e.Dosage).HasMaxLength(100);
+            entity.Property(e => e.Duration).HasMaxLength(50);
+            entity.Property(e => e.Frequency).HasMaxLength(50);
+            entity.Property(e => e.MedicineName).HasMaxLength(150);
+            entity.Property(e => e.Posology).HasMaxLength(500);
+            entity.Property(e => e.Route).HasMaxLength(50);
+            entity.Property(e => e.Warning).HasMaxLength(300);
+
+            entity.HasOne(d => d.Prescription).WithMany(p => p.PrescriptionItems)
+                .HasForeignKey(d => d.PrescriptionId)
+                .HasConstraintName("FK_PrescriptionItems_Prescriptions");
         });
 
         modelBuilder.Entity<Role>(entity =>
@@ -221,6 +296,42 @@ public partial class MinePetContext : DbContext
             entity.Property(e => e.IsActive).HasDefaultValue(true);
             entity.Property(e => e.RoleName).HasMaxLength(50);
             entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
+
+            entity.HasMany(d => d.Permissions).WithMany(p => p.Rols)
+                .UsingEntity<Dictionary<string, object>>(
+                    "RolesPermission",
+                    r => r.HasOne<Permission>().WithMany()
+                        .HasForeignKey("PermissionId")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("FK_RP_Permission"),
+                    l => l.HasOne<Role>().WithMany()
+                        .HasForeignKey("RolId")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("FK_RP_Rol"),
+                    j =>
+                    {
+                        j.HasKey("RolId", "PermissionId");
+                        j.ToTable("RolesPermissions");
+                        j.IndexerProperty<int>("RolId").HasColumnName("RolID");
+                        j.IndexerProperty<int>("PermissionId").HasColumnName("PermissionID");
+                    });
+        });
+
+        modelBuilder.Entity<Tenant>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Tenants__3214EC07452973EB");
+
+            entity.HasIndex(e => e.SchemaName, "UQ__Tenants__AAFC14FEC8DDF2F6").IsUnique();
+
+            entity.HasIndex(e => e.Domain, "UQ__Tenants__FD349E537391A7E7").IsUnique();
+
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.Domain).HasMaxLength(100);
+            entity.Property(e => e.IsActive).HasDefaultValue(true);
+            entity.Property(e => e.Name).HasMaxLength(100);
+            entity.Property(e => e.SchemaName).HasMaxLength(100);
         });
 
         modelBuilder.Entity<User>(entity =>
@@ -270,6 +381,29 @@ public partial class MinePetContext : DbContext
                 .HasForeignKey<UserProfile>(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_UserProfile_User");
+        });
+
+        modelBuilder.Entity<UserRole>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__UserRole__3213E83F53196293");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.CreatedAt)
+                .HasPrecision(3)
+                .HasDefaultValueSql("(sysdatetime())");
+            entity.Property(e => e.CreatedBy).HasColumnName("createdBy");
+
+            entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.UserRoleCreatedByNavigations)
+                .HasForeignKey(d => d.CreatedBy)
+                .HasConstraintName("FK_UserRoles_CreatedBy");
+
+            entity.HasOne(d => d.Role).WithMany(p => p.UserRoles)
+                .HasForeignKey(d => d.RoleId)
+                .HasConstraintName("FK_UserRoles_Roles");
+
+            entity.HasOne(d => d.User).WithMany(p => p.UserRoleUsers)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK_UserRoles_Users");
         });
 
         OnModelCreatingPartial(modelBuilder);
