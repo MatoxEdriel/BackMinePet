@@ -11,8 +11,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddInfrastructure(builder.Configuration);
 
-//Solo llamadas declarativas nada de configuraciones 
-//Aqui agrego las dependency injection 
 builder.Services.AddApplication();
 builder.Services.AddPresentations();
 
