@@ -7,7 +7,7 @@ public class Prescription
     public int PetId { get; private set; }
     public string Notes { get; private set; } = string.Empty;
     public string CreatedBy { get; private set; } = string.Empty;
-    public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     
 
     protected Prescription() { }

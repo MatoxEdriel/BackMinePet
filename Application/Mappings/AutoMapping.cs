@@ -1,3 +1,4 @@
+using Application.DTOs;
 using Application.DTOs.Auth;
 using Application.DTOs.Pet;
 using AutoMapper;
@@ -21,5 +22,15 @@ public class AutoMapping : Profile
             .ForMember(dest => dest.Phone, opt => opt.MapFrom(src => src.UserProfile.Phone))
             .ReverseMap();
         CreateMap<RegisterUsertDto, User>();
+
+//Entonces seria en el contexto que tiene 
+//dos tablas y pues el dto que se desea transforma involucra
+//elementos 
+// en este contexto si bien tengo un dto seria simplemente prescription
+        CreateMap<CreatePrescriptionRequest, Prescription>();
+    
+
+
+
     }
 }

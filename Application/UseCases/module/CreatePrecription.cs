@@ -26,43 +26,19 @@ public class CreatePrecription
 
     public async Task<BaseResponse<CreatePrescriptionResponse>> ExecuteAsync(CreatePrescriptionRequest request)
     {
-        if (string.IsNullOrWhiteSpace(request.Notes))
-        {
 
-            return ResponseHelper.Fail<CreatePrescriptionResponse>(
-                "Error de validacion",
-                "ValidationError"
-            );
-            
-            
-            
-    }
-        var prescipttion = _
+        var prescriptionRegister = _mapper.Map<Prescription>(request);
+        prescriptionRegister.CreatedAt = DateTime.Now;
+        
+        var saved = await _prescriptionRepository.CreatePrescriptionAsync(prescriptionRegister);
+
+        var responseDto = _mapper.Map<CreatePrescriptionResponse>(saved);
         
         
 
-
-        try
-        {
-            var entity = new Prescription(
-                request.ClinicId,
-                request.PetId,
-                request.Notes
-                
-                );
-
-
-        }
-        catch (Exception ex)
-        {
-            return ResponseHelper.Exception()>()
-        }
-
-
-        
+        return BaseResponse<CreatePrescriptionResponse>.Ok(responseDto, "Receta creada xd");
 
     }
-
 
 
 }
